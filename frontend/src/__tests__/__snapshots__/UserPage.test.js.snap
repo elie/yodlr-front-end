@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <h1>
+    Welcome!
+  </h1>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      <label
+        htmlFor="firstName"
+      >
+        First Name:
+      </label>
+      <input
+        id="firstName"
+        name="firstName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        htmlFor="lastName"
+      >
+        Last Name:
+      </label>
+      <input
+        id="lastName"
+        name="lastName"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div>
+      <label
+        htmlFor="email"
+      >
+        Email:
+      </label>
+      <input
+        id="email"
+        name="email"
+        onChange={[Function]}
+        type="email"
+        value=""
+      />
+    </div>
+    <button>
+      Register!
+    </button>
+  </form>
+</div>
+`;
