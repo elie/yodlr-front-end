@@ -24,6 +24,30 @@ export default class AdminList extends Component {
         });
       });
   }
+  handleToggleActivation = (firstName, lastName, email, id, state) => {
+    axios
+      .put(`http://localhost:3000/users/${id}`, {
+        email,
+        firstName,
+        lastName,
+        id,
+        state: state === "pending" ? "active" : "pending"
+      })
+      .then(response => {
+        let usersWithUpdate = this.state.users.map(function(user) {
+          if (user.id === response.data.id) {
+            return response.data;
+          }
+          return user;
+        });
+        this.setState({
+          users: usersWithUpdate
+        });
+      })
+      .catch(() => {
+        console.log("Something went wrong, please try again!!");
+      });
+  };
   render() {
     let users = this.state.users.map(
       ({ firstName, lastName, email, id, state }) => (
@@ -33,6 +57,9 @@ export default class AdminList extends Component {
           email={email}
           key={id}
           state={state}
+          toggleActivation={() =>
+            this.handleToggleActivation(firstName, lastName, email, id, state)
+          }
         />
       )
     );
