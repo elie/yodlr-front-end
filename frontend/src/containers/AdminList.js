@@ -6,7 +6,8 @@ export default class AdminList extends Component {
   state = {
     users: [],
     loadingMessage: "Loading...",
-    errorMessage: ""
+    errorMessage: "",
+    emailSearchValue: ""
   };
   componentDidMount() {
     axios
@@ -48,6 +49,18 @@ export default class AdminList extends Component {
         console.log("Something went wrong, please try again!!");
       });
   };
+  handleChange = e => {
+    // take whatever e.target.value is
+    // find all users whose email includes that text so far
+    // set state
+    let filteredUsers = this.state.users.filter(user =>
+      user.email.includes(e.target.value)
+    );
+    this.setState({
+      users: filteredUsers,
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     let users = this.state.users.map(
       ({ firstName, lastName, email, id, state }) => (
@@ -66,6 +79,13 @@ export default class AdminList extends Component {
     return (
       <div>
         <h1>Hello from AdminList!</h1>
+        <p>Search for a user by email:</p>
+        <input
+          type="text"
+          name="emailSearchValue"
+          value={this.state.emailSearchValue}
+          onChange={this.handleChange}
+        />
         <p>{this.state.loadingMessage}</p>
         <p>{this.state.errorMessage}</p>
         {/* <pre>{JSON.stringify(this.state.users, null, 2)}</pre> */}
