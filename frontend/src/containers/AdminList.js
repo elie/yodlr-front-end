@@ -5,6 +5,7 @@ import UserCard from "../components/UserCard";
 export default class AdminList extends Component {
   state = {
     users: [],
+    filteredUsers: [],
     loadingMessage: "Loading...",
     errorMessage: "",
     emailSearchValue: ""
@@ -14,6 +15,7 @@ export default class AdminList extends Component {
       .get("http://localhost:3000/users")
       .then(data => {
         this.setState({
+          filteredUsers: data.data,
           users: data.data,
           loadingMessage: ""
         });
@@ -50,19 +52,16 @@ export default class AdminList extends Component {
       });
   };
   handleChange = e => {
-    // take whatever e.target.value is
-    // find all users whose email includes that text so far
-    // set state
     let filteredUsers = this.state.users.filter(user =>
       user.email.includes(e.target.value)
     );
     this.setState({
-      users: filteredUsers,
+      filteredUsers,
       [e.target.name]: e.target.value
     });
   };
   render() {
-    let users = this.state.users.map(
+    let users = this.state.filteredUsers.map(
       ({ firstName, lastName, email, id, state }) => (
         <UserCard
           firstName={firstName}
